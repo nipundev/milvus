@@ -6,8 +6,8 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 def readfile(filename):
-    file = open(filename)
-    content = file.read()
+    with open(filename) as file:
+        content = file.read()
     return content
 
 def replace_all(template, **kwargs):
