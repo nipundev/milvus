@@ -82,7 +82,7 @@ def get_sources(source_dir, exclude_globs=[]):
             path = os.path.abspath(path)
 
             # filter out files that match the globs in the globs file
-            if any([fnmatch(path, glob) for glob in exclude_globs]):
+            if any(fnmatch(path, glob) for glob in exclude_globs):
                 continue
 
             sources.append(path)
