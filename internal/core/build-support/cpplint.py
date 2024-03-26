@@ -57,7 +57,7 @@ import unicodedata
 import xml.etree.ElementTree
 
 # if empty, use defaults
-_valid_extensions = set([])
+_valid_extensions = set()
 
 __VERSION__ = '1.5.4'
 
@@ -901,7 +901,7 @@ def unicode_escape_decode(x):
 
 # Treat all headers starting with 'h' equally: .h, .hpp, .hxx etc.
 # This is set by --headers flag.
-_hpp_headers = set([])
+_hpp_headers = set()
 
 # {str, bool}: a map from error categories to booleans which indicate if the
 # category should be suppressed for every line.
@@ -931,13 +931,12 @@ def GetHeaderExtensions():
     return _hpp_headers
   if _valid_extensions:
     return {h for h in _valid_extensions if 'h' in h}
-  return set(['h', 'hh', 'hpp', 'hxx', 'h++', 'cuh'])
+  return {'h', 'hh', 'hpp', 'hxx', 'h++', 'cuh'}
 
 # The allowed extensions for file names
 # This is set by --extensions flag
 def GetAllExtensions():
-  return GetHeaderExtensions().union(_valid_extensions or set(
-    ['c', 'cc', 'cpp', 'cxx', 'c++', 'cu']))
+  return GetHeaderExtensions().union(_valid_extensions or {'c', 'cc', 'cpp', 'cxx', 'c++', 'cu'})
 
 def ProcessExtensionsOption(val):
   global _valid_extensions
