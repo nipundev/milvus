@@ -70,7 +70,8 @@ _source_extensions = '''
 '''.split()
 
 
-def get_sources(source_dir, exclude_globs=[]):
+def get_sources(source_dir, exclude_globs=None):
+    exclude_globs = [] if exclude_globs is None else exclude_globs
     sources = []
     for directory, subdirs, basenames in os.walk(source_dir):
         for path in [os.path.join(directory, basename)
