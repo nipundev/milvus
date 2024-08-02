@@ -9,9 +9,9 @@ import os
 def gen_file(rootfile, template, output, **kwargs):
     namespace, root_base, struct_name = meta_gen(readfile(rootfile))
     vc = assemble(readfile(template), namespace=namespace, root_base=root_base, struct_name=struct_name, **kwargs)
-    file = open(output, 'w')
-    license = open("../../internal/core/build-support/cpp_license.txt").read()
-    file.write(license + vc)
+    with open(output, 'w') as file:
+        license = open("../../internal/core/build-support/cpp_license.txt").read()
+        file.write(license + vc)
 
 
 def extract_extra_body(visitor_info, query_path):
