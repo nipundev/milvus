@@ -6,8 +6,8 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
 
 def readfile(filename):
-    file = open(filename)
-    content = file.read()
+    with open(filename) as file:
+        content = file.read()
     return content
 
 def replace_all(template, **kwargs):
@@ -56,8 +56,8 @@ def meta_gen(content):
 
 if __name__ == "__main__":
     assert(len(sys.argv) == 2)
-    file = open(sys.argv[1])
-    content = file.read()
+    with open(sys.argv[1]) as file:
+        content = file.read()
     namespace, root_base, override_structs = meta_gen(content)
     eprint(namespace)
     eprint(root_base)
