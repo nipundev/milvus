@@ -19,6 +19,7 @@ import multiprocessing as mp
 import os
 from fnmatch import fnmatch
 from subprocess import Popen
+from security import safe_command
 
 
 def chunk(seq, n):
@@ -56,7 +57,7 @@ def run_parallel(cmds, **kwargs):
     """
     complete = []
     for cmds_batch in chunk(cmds, mp.cpu_count() * 2):
-        procs_batch = [Popen(cmd, **kwargs) for cmd in cmds_batch]
+        procs_batch = [safe_command.run(Popen, cmd, **kwargs) for cmd in cmds_batch]
         for proc in procs_batch:
             stdout, stderr = proc.communicate()
             complete.append((proc.returncode, stdout, stderr))
